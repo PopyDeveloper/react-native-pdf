@@ -412,6 +412,7 @@ export default class Pdf extends Component {
                                             style={[{flex:1,backgroundColor: '#EEE'}, this.props.style]}
                                             path={this.state.path}
                                             onChange={this._onChange}
+                                            onLoadComplete={this.props.onLoadComplete}
                                         />
                                     ):(
                                         this.props.usePDFKit ?(
