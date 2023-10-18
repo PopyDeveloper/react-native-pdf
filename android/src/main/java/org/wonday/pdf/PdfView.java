@@ -284,7 +284,8 @@ public class PdfView extends PDFView implements OnPageChangeListener,OnLoadCompl
                 .enableSwipe(!this.singlePage)
                 .enableDoubletap(!this.singlePage)
                 .enableAnnotationRendering(this.enableAnnotationRendering)
-                .linkHandler(this);
+                .linkHandler(this)
+                .onLoadComplete(this.loadComplete);
 
             if (this.singlePage) {
                 configurator.pages(this.page-1);
