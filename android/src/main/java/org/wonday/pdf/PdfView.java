@@ -8,57 +8,39 @@
 
 package org.wonday.pdf;
 
-import java.io.File;
-
-import android.content.ContentResolver;
-import android.content.Context;
-import android.view.View;
-import android.view.ViewGroup;
-import android.util.Log;
-import android.graphics.PointF;
-import android.net.Uri;
-import android.util.AttributeSet;
-import android.view.MotionEvent;
-import android.graphics.Canvas;
-import javax.annotation.Nullable;
-
-
-import com.github.barteksc.pdfviewer.PDFView;
-import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
-import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
-import com.github.barteksc.pdfviewer.listener.OnErrorListener;
-import com.github.barteksc.pdfviewer.listener.OnRenderListener;
-import com.github.barteksc.pdfviewer.listener.OnTapListener;
-import com.github.barteksc.pdfviewer.listener.OnDrawListener;
-import com.github.barteksc.pdfviewer.listener.OnPageScrollListener;
-import com.github.barteksc.pdfviewer.util.FitPolicy;
-import com.github.barteksc.pdfviewer.util.Constants;
-import com.github.barteksc.pdfviewer.link.LinkHandler;
-import com.github.barteksc.pdfviewer.model.LinkTapEvent;
-
-import com.facebook.react.bridge.NativeModule;
-import com.facebook.react.bridge.ReactContext;
-import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.WritableMap;
-import com.facebook.react.uimanager.SimpleViewManager;
-import com.facebook.react.uimanager.ThemedReactContext;
-import com.facebook.react.uimanager.annotations.ReactProp;
-import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.facebook.react.common.MapBuilder;
-import com.facebook.react.modules.core.DeviceEventManagerModule;
-import com.facebook.common.logging.FLog;
-import com.facebook.react.common.ReactConstants;
-
 import static java.lang.String.format;
 
+import android.content.ContentResolver;
+import android.graphics.Canvas;
+import android.net.Uri;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.uimanager.ThemedReactContext;
+import com.facebook.react.uimanager.events.RCTEventEmitter;
+import com.github.barteksc.pdfviewer.PDFView;
+import com.github.barteksc.pdfviewer.link.LinkHandler;
+import com.github.barteksc.pdfviewer.listener.OnDrawListener;
+import com.github.barteksc.pdfviewer.listener.OnErrorListener;
+import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
+import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
+import com.github.barteksc.pdfviewer.listener.OnPageScrollListener;
+import com.github.barteksc.pdfviewer.listener.OnTapListener;
+import com.github.barteksc.pdfviewer.model.LinkTapEvent;
+import com.github.barteksc.pdfviewer.util.Constants;
+import com.github.barteksc.pdfviewer.util.FitPolicy;
+import com.google.gson.Gson;
+import com.shockwave.pdfium.util.SizeF;
+
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.lang.ClassCastException;
-
-import com.shockwave.pdfium.PdfDocument;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.shockwave.pdfium.util.SizeF;
 
 public class PdfView extends PDFView implements OnPageChangeListener,OnLoadCompleteListener,OnErrorListener,OnTapListener,OnDrawListener,OnPageScrollListener, LinkHandler {
     private ThemedReactContext context;
@@ -284,8 +266,7 @@ public class PdfView extends PDFView implements OnPageChangeListener,OnLoadCompl
                 .enableSwipe(!this.singlePage)
                 .enableDoubletap(!this.singlePage)
                 .enableAnnotationRendering(this.enableAnnotationRendering)
-                .linkHandler(this)
-                .onLoadComplete(this);
+                .linkHandler(this);
 
             if (this.singlePage) {
                 configurator.pages(this.page-1);
